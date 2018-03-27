@@ -27,19 +27,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\guards\auth.guard.spec.ts" />
+    <None Remove="ClientApp\app\guards\auth.guard.ts" />
     <None Remove="ClientApp\app\services\authenticate.service.ts" />
     <None Remove="ClientApp\app\services\validation.service.spec.ts" />
     <None Remove="ClientApp\app\services\validation.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.spec.ts" />
+    <TypeScriptCompile Include="ClientApp\app\guards\auth.guard.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\authenticate.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\validation.service.spec.ts" />
     <TypeScriptCompile Include="ClientApp\app\services\validation.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\guards\" />
     <Folder Include="ClientApp\app\directives\" />
     <Folder Include="ClientApp\app\models\" />
   </ItemGroup>

@@ -6,7 +6,7 @@ import { LoginViewModel } from '../viewmodels/login.viewmodel';
 import { RegisterViewModel } from '../viewmodels/register.viewmodel';
 
 @Injectable()
-export class AuthService {
+export class AuthenticateService {
     authToken: any;
     user: any;
     authenticated: boolean;
@@ -15,7 +15,6 @@ export class AuthService {
 
     registerUser(user: RegisterViewModel) {
         let headers = new Headers();
-        headers.append('Authorization', 'supersecretbulletproofkey');
         headers.append('Content-Type', 'application/json');
         let ep = 'api/Accounts/';
 
