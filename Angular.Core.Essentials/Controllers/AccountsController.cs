@@ -40,7 +40,13 @@ namespace Angular.Core.Essentials.Controllers
 
             await _db.SaveChangesAsync();
 
-            return new OkObjectResult("Account created");
+            var response = new
+            {
+                Success = true,
+                Message = "Account created"
+            };
+
+            return new OkObjectResult(response);
         }
     }
 }

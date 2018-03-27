@@ -45,6 +45,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\app\directives\" />
     <Folder Include="ClientApp\app\models\" />
+    <Folder Include="ClientApp\app\modules\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

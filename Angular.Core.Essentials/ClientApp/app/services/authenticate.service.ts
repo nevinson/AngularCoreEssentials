@@ -16,7 +16,7 @@ export class AuthenticateService {
     registerUser(user: RegisterViewModel) {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        let ep = 'api/Accounts/';
+        let ep = 'api/Accounts';
 
         return this.http.post(ep, user, { headers: headers })
             .map(res => res.json());
@@ -26,7 +26,7 @@ export class AuthenticateService {
         // let body = `username=${user.username}&password=${user.password}&grant_type=password`
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        let ep = 'api/Authenticate/';
+        let ep = 'api/Authenticate';
 
         return this.http.post(ep, user, { headers: headers })
             .map(res => res.json());
