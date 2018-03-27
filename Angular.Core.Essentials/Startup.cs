@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Angular.Core.Essentials.Data;
 using Angular.Core.Essentials.Data.Models;
 using Angular.Core.Essentials.Helpers.Auth;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -99,6 +100,8 @@ namespace Angular.Core.Essentials
             });
             builder = new IdentityBuilder(builder.UserType, typeof(IdentityRole), builder.Services);
             builder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddAutoMapper();
 
             services.AddMvc()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
