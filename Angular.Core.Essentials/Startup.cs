@@ -1,18 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Angular.Core.Essentials.Data;
 using Angular.Core.Essentials.Data.Models;
+using Angular.Core.Essentials.Helpers.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Angular.Core.Essentials
@@ -37,6 +42,10 @@ namespace Angular.Core.Essentials
             services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("AngularCoreEssentials"),
                         b => b.MigrationsAssembly("Angular.Core.Essentials")));
+
+            services.AddSingleton<IJwtFactory, JwtFactory>();
+
+            services.TryAddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             services.Configure<JwtIssuerOptions>(options =>
             {
@@ -108,6 +117,23 @@ namespace Angular.Core.Essentials
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseExceptionHandler(
+                builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        context.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            //context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message).ConfigureAwait(false);
+                        }
+                    });
+                });
 
             app.UseStaticFiles();
 
